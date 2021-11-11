@@ -1,5 +1,6 @@
-@extends('layouts.masterpage')
-@section('title','Hakkında')
+@extends('Front.layouts.masterpage')
+@section('title','Hakkımızda')
+@section('title2','Hakkımızda')
 @section('content')
 <!-- Main Content-->
 <main class="mb-4">

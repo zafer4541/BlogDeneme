@@ -12,9 +12,10 @@ class Articles extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('content');
+            $table->text('content');
             $table->string('image');
             $table->integer('hit')->default(0);
+            $table->boolean('durum')->default(0);
             $table->unsignedBigInteger('catagoryIdFk');
             $table->timestamps();
 
