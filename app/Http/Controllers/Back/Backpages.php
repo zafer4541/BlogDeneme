@@ -7,10 +7,13 @@ use App\Models\Login;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+use Illuminate\Support\Facades\Auth;
+
 class Backpages extends Controller
 {
-    public function index($name)
+    public function index()
     {
+        $name=Auth::user()->get()[0]->name;
         return view('Back/dashboard',compact('name'));
     }
 
@@ -24,23 +27,23 @@ class Backpages extends Controller
         $validate = $request->validate([
             'username' => 'required | min:6',
             'password' => 'required | min:8',
-        ]);/*
+        ]);
+    /*    if (Auth::attempt(['user_name' => $request->username, 'password' => $request->password])){
 
-        if (Auth::attempt(['user_name' => $request->username, 'password' => $request->password])){
-
-            $admin_name=Auth::attempt(['user_name' => $request->username, 'password' => $request->password])->name;
+            $admin_name=Auth::user()->get()[0]->name;
             dd($admin_name);
             return view('Back\dashboard',compact('admin_name'));
         }
         else
-            return redirect()->back()->withErrors('Kullanıcı adı veya şifre yanlış.');*/
+            return redirect()->back()->withErrors('Kullanıcı adı veya şifre yanlış.');
+*/
         $login = Login::where('user_name', '=', $request->username)->first();
         if (!is_null($login)) {
-            $name=$login->name;
             if ($login->password == $request->password)
             {
-                return redirect('admin/panel/'.$name);
-                //return view('Back\dashboard',compact('name'));
+                Auth::loginUsingId($login->id);
+                $name=Auth::user()->get()[0]->name;
+               return view('Back/dashboard',compact('name'));
             }
             else
                 return redirect()->back()->withErrors('Yanlış şifre girdiniz!');

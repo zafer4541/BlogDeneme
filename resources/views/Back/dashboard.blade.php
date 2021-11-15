@@ -1,5 +1,6 @@
 @extends('Back.layouts.master')
 @section('title_panel','Panel')
+@section('user',Str::Upper($name))
 @section('content')
 
     <!-- Content Row -->

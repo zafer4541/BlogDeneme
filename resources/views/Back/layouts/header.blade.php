@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('/back')}}/css/sb-admin-2.min.css" rel="stylesheet">
-
+    @yield('css')
     <!-- Custom styles for this page -->
     <link href="{{asset('/back')}}/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
@@ -43,7 +43,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
-            <a class="nav-link" href="{{ url('admin/panel/'.Str::upper(Request::Segment(3)))}}">
+            <a class="nav-link" href="{{ route('dashboard.index')}}">
                 <i class="fas fa-fw fa-tachometer-alt"></i>
                 <span>Panel</span></a>
         </li>
@@ -58,16 +58,16 @@
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link @if(Request::Segment(4)=="makale") in @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            <a class="nav-link @if(Request::Segment(3)=="makale") in @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-edit"></i>
                 <span>Makaleler</span>
             </a>
-            <div id="collapseTwo" class="collapse @if(Request::Segment(4)=="makale") show @else collapsed @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div id="collapseTwo" class="collapse @if(Request::Segment(3)=="makale") show @else collapsed @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Makale İşlemleri</h6>
-                    <a class="collapse-item @if(Request::Segment(4)=="makale") active @else collapsed @endif" href="{{url('admin/panel/'.Str::upper(Request::Segment(3)).'/makale/index')}}">Tüm makaleler</a>
-                    <a class="collapse-item" href="{{url('admin/panel/'.Str::upper(Request::Segment(3)).'/makale/index2')}}">Makale oluştur</a>
+                    <a class="collapse-item @if(Request::Segment(3)=="makale") active @else collapsed @endif" href="{{route('dashboard.makale.index')}}">Tüm makaleler</a>
+                    <a class="collapse-item" href="{{route('dashboard.makale.index2')}}">Makale oluştur</a>
                 </div>
             </div>
         </li>
@@ -249,11 +249,11 @@
 
                     <div class="topbar-divider d-none d-sm-block"></div>
 
-                    <!-- Nav Item - User Information -->
+                    <!-- Nav Item - Information -->
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{Str::upper(Request::Segment(3))}}</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">@yield('user','Admin')</span>
                         </a>
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"

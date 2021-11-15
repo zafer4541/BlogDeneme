@@ -1,7 +1,15 @@
 @extends('Back/layouts/master')
 @section('title_panel','Makaleler')
+@section('user',Str::Upper($name))
 @section('content')
+
+
+
 <div class="card shadow mb-4">
+    @if(session('success'))
+        <div class="alert alert-success">{{session('success')}} </div>
+    @endif
+
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary float-right">{{$articles->count()}} Adet sonuç bulundu</h6>
     </div>
@@ -31,9 +39,12 @@
                     <td style="vertical-align: middle">{{$makale->created_at->diffforhumans()}}</td>
                     <td style="vertical-align: middle">{{$makale->updated_at->diffforhumans()}}</td>
                     <td style="vertical-align: middle; width:7rem;">
-                        <a href="{{url('admin/panel/'.Str::upper(Request::Segment(3)).'/makale/show/'.$makale->id)}}" class="btn btn-sm btn-success" title="Görüntüle"><i class="fa fa-eye"></i></a>
-                        <a href="{{url('admin/panel/'.Str::upper(Request::Segment(3)).'/makale/edit/'.$makale->id)}}" class="btn btn-sm btn-primary" title="Düzenle"><i class="fa fa-pen"></i></a>
-                        <a href="{{url('admin/panel/'.Str::upper(Request::Segment(3)).'/makale/destroy/'.$makale->id)}}" class="btn btn-sm btn-danger" title="Sil"><i class="fa fa-times"></i></a>
+                        <a href="{{route('dashboard.makale.show',$makale->id)}}" class="btn btn-sm btn-success" title="Görüntüle"><i class="fa fa-eye"></i></a>
+                        <a href="{{route('dashboard.makale.edit',$makale->id)}}" class="btn btn-sm btn-primary" title="Düzenle"><i class="fa fa-pen"></i></a>
+                        <a href="{{route('dashboard.makale_delete',$makale->id)}}" class="btn btn-sm btn-danger" title="Sil"><i class="fa fa-times"></i></a>
+
+                        <!--   <a data-toggle="modal" data-target="#exampleModal" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                         onay formu include('Back/Widgets/onay') -->
                     </td>
                 </tr>
                 @endforeach
@@ -42,4 +53,5 @@
         </div>
     </div>
 </div>
+
 @endsection

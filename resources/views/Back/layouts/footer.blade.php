@@ -67,7 +67,7 @@
 
 <!-- Page level custom scripts -->
 <script src="{{asset('/back')}}/js/demo/datatables-demo.js"></script>
-
+@yield('js')
 
 </body>
 

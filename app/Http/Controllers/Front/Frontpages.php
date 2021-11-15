@@ -23,7 +23,7 @@ class Frontpages extends Controller
         $validate=$request->validate([
             'name'=>'required | min:5',
             'email'=>'required | email',
-            'message'=>'required | min:10'
+            'message'=>'required | min:10',
         ]);
         $contact=new Contact();
         $contact->name=$request->name;
@@ -53,6 +53,7 @@ class Frontpages extends Controller
             $article_data=Article::where('slug','=',$slug)->first();
             $catagorycontrol=$article_data->getcatagory->slug ?? abort(403,'Bu katagoriye ait bir sayfa bulunamadı');
             if ($catagorycontrol==$catagory){
+                $article_data->increment('hit');
                 return view('Front/postpage',compact('article_data'));
             }
             else
@@ -61,8 +62,11 @@ class Frontpages extends Controller
 
         else{
             $article_data=Article::orderBy('created_at','Desc')->first();
+            $article_data->increment('hit');
             return view('Front/postpage',compact('article_data'));
         }
+
+
     }
 
 }

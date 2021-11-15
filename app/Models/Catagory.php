@@ -9,6 +9,6 @@ class Catagory extends Model
 {
     use HasFactory;
    function getarticles(){
-      return $this->hasMany('App\Models\Article','catagoryIdFk','id')->orderBy('created_at','Desc');
+      return $this->hasMany('App\Models\Article','catagoryIdFk','id')->orderBy('created_at','Desc')->where('durum','=','1');
    }
 }

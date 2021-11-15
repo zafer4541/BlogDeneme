@@ -17,6 +17,7 @@ class Articles extends Migration
             $table->integer('hit')->default(0);
             $table->boolean('durum')->default(0);
             $table->unsignedBigInteger('catagoryIdFk');
+            $table->softDeletes();
             $table->timestamps();
 
             $table->foreign('catagoryIdFk')

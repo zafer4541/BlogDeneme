@@ -8,19 +8,19 @@ use App\Http\Controllers\Back\ArticleController;
 /*---------Back Routes----------*/
 Route::prefix('admin')->name('dashboard.')->group(function(){
     Route::post('panel',[Backpages::class,'post_login'])->name('post_login');
-    Route::get('panel/{name}',[Backpages::class,'index'])->name('index');
+    Route::get('panel',[Backpages::class,'index'])->name('index');
     Route::get('login',[Backpages::class,'login'])->name('login');
 
    // Route::resource('makale',[ArticleController::class]);
-    Route::prefix('panel/{name}/makale')->group(function(){
+    Route::middleware('auth')->prefix('panel/makale')->group(function(){
+        Route::get('/index',[ArticleController::class,'index'])->name('makale.index');
+        Route::get('/index2',[ArticleController::class,'index2'])->name('makale.index2');
+        Route::get('/show/{id}',[ArticleController::class,'show'])->name('makale.show');
+        Route::get('/edit/{id}',[ArticleController::class,'edit'])->name('makale.edit');
 
-        Route::get('/index',['as'=>'makale.index','uses'=>'App\Http\Controllers\Back\ArticleController@index']);
-        Route::get('/index2',['as'=>'makale.index','uses'=>'App\Http\Controllers\Back\ArticleController@index2']);
-        Route::get('/show/{id}',['as'=>'makale.view','uses'=>'App\Http\Controllers\Back\ArticleController@show']);
-        Route::get('/edit/{id}',['as'=>'makale.edit','uses'=>'App\Http\Controllers\Back\ArticleController@edit']);
-        Route::post('/create',['as'=>'makale.store','uses'=>'App\Http\Controllers\Back\ArticleController@create']);
-        Route::patch('/update/{id}',['as'=>'makale.update','uses'=>'App\Http\Controllers\Back\ArticleController@update']);
-        Route::delete('/destroy/{id}',['as'=>'makale.destroy','uses'=>'App\Http\Controllers\Back\ArticleController@destroy']);
+        Route::get('/delete/{id}',[ArticleController::class,'delete'])->name('makale_delete');
+        Route::post('/create',[ArticleController::class,'create'])->name('makale_create');
+        Route::put('/update/{id}',[ArticleController::class,'update'])->name('makale_update');
     });
 
 });
